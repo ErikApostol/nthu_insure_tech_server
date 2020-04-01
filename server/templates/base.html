@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>NTHU INSURE TECH</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
 </head>
 
 <body>
@@ -19,19 +23,22 @@
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
                             <a href="{{ url_for('main.index') }}" class="navbar-item">
-                                Home
+                                首頁
+                            </a>
+                            <a href="{{ url_for('forum.forum_index') }}" class="navbar-item">
+                                討論區
                             </a>
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                                Profile
+                                帳號資料
                             </a>
                             <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                                Login
+                                登入
                             </a>
                             <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                                Sign Up
+                                註冊
                             </a>
                             <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                                Logout
+                                登出
                             </a>
                         </div>
                     </div>

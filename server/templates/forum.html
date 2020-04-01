@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="column" xmlns:width="http://www.w3.org/1999/xhtml">
+    <h3 class="title">討論區</h3>
+    <div class="box" width="100%">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <section id="content">
+            {%for i in range(0, forum_data['count'])%}
+            <div class="question-type2033">
+                <div class="row">
+<!--                    <div class="col-md-1">-->
+<!--                        <div class="left-user12923 left-user12923-repeat">-->
+<!--                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>-->
+<!--                    </div>-->
+                    <div class="col-md-10">
+                        <div class="right-description893" align="left">
+                            <div id="que-hedder2983">
+                                <h3><a href=# target="_blank">{{ forum_data['content'][i]['comment'] }}</a></h3> </div>
+<!--                            <div class="ques-details10018">-->
+<!--                                <p>{{ forum_data['content'][i]['user_name'] }}</p>-->
+<!--                            </div>-->
+                            <hr>
+                            <div class="ques-icon-info3293"><a>{{ forum_data['content'][i]['time'] }}</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="ques-type302" align="right">
+                            <a href="#">
+                                {{ forum_data['content'][i]['user_name'] }}
+                            </a>
+                            <a href="#">
+                                {{ forum_data['content'][i]['user_email'] }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </section>
+
+
+        <form>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Comment" autofocus="">
+                </div>
+            </div>
+
+
+            <button class="button is-block is-info is-large is-fullwidth">Send</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

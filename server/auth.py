@@ -64,6 +64,7 @@ def signup_post():
 def signup_ex():
     return render_template('signup_ex.html')
 
+
 @auth.route('/signup_ex', methods=['POST'])
 def signup_ex_post():
     email = request.form.get('email')
