@@ -62,21 +62,27 @@ def forum_index():
 
 
 @forum.route('/get_forum_data')
-@login_required
+# @login_required
 def get_forum_data():
-    fake_data = {
-        "count": 1,
-        "content": [
-            {
-                "id": 12,
-                "time": "2020-03-14",
-                "user_id": 1,
-                "user_name": "test",
-                "user_email": "test@test",
-                "comment": "hello!"
-            }]
+    data = ForumComment.query.order_by(ForumComment.insert_time.desc()).all()
+
+    content_list = []
+    for d in data:
+        content_list.append({
+            "id": d.comment_id,
+            "time": d.insert_time,
+            "user_id": d.user_id,
+            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
+            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
+            "comment": d.comment
+        })
+
+    return_data = {
+        "count": len(data),
+        "content": content_list
     }
-    return jsonify(fake_data)
+
+    return jsonify(return_data)
 
 
 @forum.route('/comment', methods=['POST'])

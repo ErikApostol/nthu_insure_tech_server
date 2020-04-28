@@ -20,6 +20,7 @@ def login_post():
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
+    print(user)
 
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
@@ -27,9 +28,10 @@ def login_post():
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))  # if user doesn't exist or password is wrong, reload the page
 
+    print(user.name, user.id)
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    session['user_id'] = user.user_id
+    session['user_id'] = user.id
     session['user_name'] = user.name
     return redirect(url_for('main.profile'))
 
