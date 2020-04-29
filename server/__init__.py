@@ -10,6 +10,7 @@ def create_app():
 
     app.config['SECRET_KEY'] = 'nthu_insure_tech_server'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.config['UPLOAD_ROOT'] = '/tmp'
 
     db.init_app(app)
 
