@@ -33,6 +33,9 @@ def create_app():
     from forum import forum as forum_blueprint
     app.register_blueprint(forum_blueprint)
 
+    from file import file as file_blueprint
+    app.register_blueprint(file_blueprint)
+
     return app
 
 

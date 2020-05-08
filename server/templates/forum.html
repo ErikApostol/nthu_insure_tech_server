@@ -1,65 +1,148 @@
 {% extends "base.html" %}
 
 {% block content %}
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
 
-
-
-<div class="column" xmlns:width="http://www.w3.org/1999/xhtml">
-    <h3 class="title">討論區</h3>
-    <div class="box" width="100%">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
-
-        <section id="content">
-            {%for i in range(0, forum_data['count'])%}
-            <div class="question-type2033">
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
                 <div class="row">
-<!--                    <div class="col-md-1">-->
-<!--                        <div class="left-user12923 left-user12923-repeat">-->
-<!--                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>-->
-<!--                    </div>-->
-                    <div class="col-md-10">
-                        <div class="right-description893" align="left">
-                            <div id="que-hedder2983">
-                                <h3><a href=# target="_blank">{{ forum_data['content'][i]['comment'] }}</a></h3> </div>
-<!--                            <div class="ques-details10018">-->
-<!--                                <p>{{ forum_data['content'][i]['user_name'] }}</p>-->
-<!--                            </div>-->
-                            <hr>
-                            <div class="ques-icon-info3293"><a>{{ forum_data['content'][i]['time'] }}</a></div>
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>2</h3>
+
+                                <p>支您個人已上傳影片</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-ios-film"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="ques-type302" align="right">
-                            <a href="#">
-                                {{ forum_data['content'][i]['user_name'] }}
-                            </a>
-                            <a href="#">
-                                {{ forum_data['content'][i]['user_email'] }}
-                            </a>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>209</h3>
+
+                                <p>支全站已上傳影片</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-android-film"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>313</h3>
+
+                                <p>名用戶註冊</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>1328</h3>
+
+                                <p>人已參觀本站</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-android-people"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
                 </div>
-            </div>
-            {%endfor%}
+                <!-- /.row -->
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <section class="col-lg-7 connectedSortable">
+
+                        <!-- DIRECT CHAT -->
+                        <div class="card direct-chat direct-chat-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">已上傳影片的評論</h3>
+
+                                <div class="card-tools">
+                                    <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+                                        <i class="fas fa-comments"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <!-- Conversations are loaded here -->
+				<form method="get" action="{{ url_for('forum') }}">
+				    國家 <select id="country" name="country">
+				    汽車/機車 <select id="car_or_motor" name="car_or_motor">
+				    自撞/他撞 <select id="hit_by_whom" name="hit_by_whom">
+				    上傳者為當事人/目擊者 <select id="involved_or_witness" name="involved_or_witness">
+			            <input type="submit">
+				</form>
+
+				{% for conversation in filtered %}
+				    <a href="#"></a>
+				{% endfor %}
+
+                                <!-- Contacts are loaded here -->
+                                <div class="direct-chat-contacts">
+                                </div>
+                                <!-- /.direct-chat-pane -->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                            </div>
+                            <!-- /.card-footer-->
+                        </div>
+                        <!--/.direct-chat -->
+
+                    </section>
+                    <!-- /.Left col -->
+                    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                    <section class="col-lg-5 connectedSortable">
+
+
+                    </section>
+                    <!-- right col -->
+                </div>
+                <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
         </section>
-
-
-        <form>
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Comment" autofocus="">
-                </div>
-            </div>
-
-
-            <button class="button is-block is-info is-large is-fullwidth">Send</button>
-        </form>
-    </div>
-</div>
+        <!-- /.content -->
 {% endblock %}
