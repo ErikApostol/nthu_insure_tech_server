@@ -34,7 +34,7 @@
                             <div class="icon">
                                 <i class="ion ion-ios-film"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url_for('my_videos') }}" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -49,7 +49,7 @@
                             <div class="icon">
                                 <i class="ion ion-android-film"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ url_for('forum_index') }}" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -64,7 +64,6 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -79,7 +78,6 @@
                             <div class="icon">
                                 <i class="ion ion-android-people"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -123,6 +121,18 @@
                                                 <select id="car_or_motor" name="car_or_motor">
                                                     <option value = "car">汽車 Car</option>
                                                     <option value = "motor">機車 Motor</option>
+                                                </select>
+                                            </p>
+				            <p>是否為自撞
+                                                <select id="hit_by_whom" name="crush_type"> 
+                                                    <option value="true"  label="car">自撞</option>
+                                                    <option value="false" label="car">他撞</option>
+                                                </select>
+                                            </p>
+				            <p>上傳者是否為當事人
+                                                <select id="involved_or_witness" name="role"> 
+                                                    <option value="true"  label="car">當事人</option>
+                                                    <option value="false" label="car">目擊者</option>
                                                 </select>
                                             </p>
                                             <p>您駕駛的是自己或別人的車？
