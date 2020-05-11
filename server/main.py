@@ -8,7 +8,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     db.create_all()
-    return render_template('index.html')
+    return render_template('index.html', step_1=True, step_2=True)
 
 
 @main.route('/profile')

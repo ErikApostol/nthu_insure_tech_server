@@ -4,6 +4,7 @@ from __init__ import db
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
@@ -33,12 +34,12 @@ class UploadFile(db.Model):
     file_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
 
-    filename = db.Column(db.String(2048))
-    hash_filename = db.Column(db.String(2048))
+    vidoe_filename = db.Column(db.String(2048))
+    vidoe_hash_filename = db.Column(db.String(2048))
     g_sensor_filename = db.Column(db.String(2048))
-    hash_g_sensor_filename = db.Column(db.String(2048))
+    g_sensor_hash_filename = db.Column(db.String(2048))
 
-    accident_time = db.Column(db.DateTime)
+    accident_time = db.Column(db.String(2048))
     car_to_motor = db.Column(db.String(2048))
     ownership = db.Column(db.String(2048))
     object_hit = db.Column(db.String(2048))
@@ -51,10 +52,10 @@ class UploadFile(db.Model):
     def __init__(self, user_id, filename, hash_filename, g_sensor_filename, hash_g_sensor_filename, accident_time,
                  car_or_motor, ownership, object_hit, country, description):
         self.user_id = user_id
-        self.filename = filename
-        self.hash_filename = hash_filename
+        self.vidoe_filename = filename
+        self.vidoe_hash_filename = hash_filename
         self.g_sensor_filename = g_sensor_filename
-        self.hash_g_sensor_filename = hash_g_sensor_filename
+        self.g_sensor_hash_filename = hash_g_sensor_filename
         self.accident_time = accident_time
         self.car_to_motor = car_or_motor
         self.ownership = ownership

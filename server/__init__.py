@@ -36,10 +36,12 @@ def create_app():
     from file import file as file_blueprint
     app.register_blueprint(file_blueprint)
 
+
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
+    # db.create_all(app)
     app.debug = True
     app.run()
