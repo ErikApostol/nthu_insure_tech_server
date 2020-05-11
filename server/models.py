@@ -1,11 +1,21 @@
+from flask import request
 from flask_login import UserMixin
 from datetime import datetime
 from __init__ import db
 
 
+class Visit(db.Model):
+    __tablename__ = 'Visit'
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(1000), unique=True)
+    insert_time = db.Column(db.DateTime, default=datetime.now)
+
+    def __init__(self, ip):
+        self.ip = ip
+
 class User(UserMixin, db.Model):
     __tablename__ = 'User'
-    id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
