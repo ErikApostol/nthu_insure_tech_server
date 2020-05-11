@@ -21,7 +21,25 @@ def sha_filename(filename):
     return hash_name
 
 
-@file.route('/uploader', methods=['POST'])
+@file.route('/upload_video', methods=['POST'])
+@login_required
+def upload_video():
+    file = request.files['file']
+    filename = file.filename
+    hash_filename = sha_filename(filename)
+    print(filename)
+
+
+@file.route('/upload_g_sensor', methods=['POST'])
+@login_required
+def upload_g_sensor():
+    file = request.files['file']
+    filename = file.filename
+    hash_filename = sha_filename(filename)
+    print(filename)
+
+
+@file.route('/upload_info', methods=['POST'])
 @login_required
 def uploader():
     file = request.files['file']

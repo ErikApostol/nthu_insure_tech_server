@@ -100,51 +100,74 @@
                             <div class="card-body">
                                 <div class="tab-content p-0">
                                     <div class="card-deck">
-                                        <form action = "{{ url_for('uploader') }}" method = "POST" enctype = "multipart/form-data">
-                                            <p>選擇上傳影片<input type="file" name="video_file" /></p>
-                                            <p>若您駕駛的是汽車，請一併上傳G sensor檔案（副檔名通常為.nmea）<input type="file" name="g_sensor_file" /></p>
-                                            <p>事故發生大約時間：
-                                                <select id="time" name="accident_time">
-                                                    <option value="00-02">00:00-02:00</option>
-                                                    <option value="02-04">02:00-04:00</option>
-                                                    <option value="04-06">04:00-06:00</option>
-                                                    <option value="06-08">06:00-08:00</option>
-                                                    <option value="08-10">08:00-10:00</option>
-                                                    <option value="10-12">10:00-12:00</option>
-                                                    <option value="12-14">12:00-14:00</option>
-                                                    <option value="14-16">14:00-16:00</option>
-                                                    <option value="16-18">16:00-18:00</option>
-                                                    <option value="18-20">18:00-20:00</option>
-                                                    <option value="20-22">20:00-22:00</option>
-                                                    <option value="22-24">22:00-24:00</option>
-                                                </select>
+                                        <form action="/upload_video" method="POST" enctype="multipart/form-data">
+                                            <p>1. 選擇上傳影片（只接受.avi/.mp4/.mov副檔名）
+                                                <br>
+                                                <input class="btn btn-outline-primary" type="file" name="video_file" />
                                             </p>
-                                            <p>您駕駛的是汽車還是機車？
-                                                <select id="car_or_motor" name="car_or_motor">
-                                                    <option value = "car">汽車 Car</option>
-                                                    <option value = "motor">機車 Motor</option>
-                                                </select>
-                                            </p>
-                                            <p>您駕駛的是自己或別人的車？
-                                                <select id="ownership" name="ownership">
-                                                    <option value = "mine">自己的車 Mine</option>
-                                                    <option value = "others">別人的車 Other's</option>
-                                                </select>
-                                            </p>
+                                            <Input class="btn btn-primary" Type="submit" Value="開始上傳">
+                                            <Input class="btn btn-primary" Type="reset" Value="清除重選">
+                                        </form>
 
-                                            <p>撞到什麼東西：
-                                                <select id="object_hit" name="object_hit">
-                                                    <option value="motorcycle">機車 Motorcycle</option>
-                                                    <option value="ordinary_car">小型車 Car</option>
-                                                    <option value="van">箱型車 Van</option>
-                                                    <option value="bus">巴士 Bus</option>
-                                                    <option value="truck">卡車 Truck</option>
-                                                    <option value="none">沒撞到東西 None</option>
-                                                </select>
+                                        <form action="/upload_video" method="POST" enctype="multipart/form-data">
+                                            <p>2. 若您駕駛的是汽車，請一併上傳G sensor檔案（副檔名通常為.nmea）
+                                                <br>
+                                                <input class="btn btn-outline-primary" type="file" name="g_sensor_file" />
                                             </p>
+                                            <Input class="btn btn-primary" Type="submit" Value="開始上傳">
+                                            <Input class="btn btn-primary" Type="reset" Value="清除重選">
+                                        </form>
 
+                                        <form action="/upload_info" method="POST" enctype="application/json">
+                                            <div class="form-group">
+                                                <p>3. 事故發生大約時間：
+                                                    <select class="form-control" id="time" name="accident_time">
+                                                        <option value="00-02">00:00-02:00</option>
+                                                        <option value="02-04">02:00-04:00</option>
+                                                        <option value="04-06">04:00-06:00</option>
+                                                        <option value="06-08">06:00-08:00</option>
+                                                        <option value="08-10">08:00-10:00</option>
+                                                        <option value="10-12">10:00-12:00</option>
+                                                        <option value="12-14">12:00-14:00</option>
+                                                        <option value="14-16">14:00-16:00</option>
+                                                        <option value="16-18">16:00-18:00</option>
+                                                        <option value="18-20">18:00-20:00</option>
+                                                        <option value="20-22">20:00-22:00</option>
+                                                        <option value="22-24">22:00-24:00</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p>您駕駛的是汽車還是機車？
+                                                    <select class="form-control" id="car_or_motor" name="car_or_motor">
+                                                        <option value = "car">汽車 Car</option>
+                                                        <option value = "motor">機車 Motor</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p>您駕駛的是自己或別人的車？
+                                                    <select class="form-control" id="ownership" name="ownership">
+                                                        <option value = "mine">自己的車 Mine</option>
+                                                        <option value = "others">別人的車 Other's</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p>撞到什麼東西：
+                                                    <select class="form-control" id="object_hit" name="object_hit">
+                                                        <option value="motorcycle">機車 Motorcycle</option>
+                                                        <option value="ordinary_car">小型車 Car</option>
+                                                        <option value="van">箱型車 Van</option>
+                                                        <option value="bus">巴士 Bus</option>
+                                                        <option value="truck">卡車 Truck</option>
+                                                        <option value="none">沒撞到東西 None</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
                                             <p>事故發生在哪個國家：
-                                                <select id="country" name="country">
+                                                <select class="form-control" id="country" name="country">
                                                     <option value="Afganistan">Afghanistan</option>
                                                     <option value="Albania">Albania</option>
                                                     <option value="Algeria">Algeria</option>
@@ -393,11 +416,16 @@
                                                     <option value="Zimbabwe">Zimbabwe</option>
                                                 </select>
                                             </p>
+                                            </div>
 
+                                            <div class="form-group">
                                             <p>事件大略描述：
-                                                <textarea id="description" name="description"></textarea>
+                                                <textarea class="form-control" id="description" name="description"></textarea>
                                             </p>
-                                            <p><input type="submit" value="開始上傳" /></p>
+                                            </div>
+                                            
+                                            <p><input class="btn btn-primary" type="submit" value="開始上傳" /></p>
+                                            
                                         </form>   
                                     </div>
                                 </div>
