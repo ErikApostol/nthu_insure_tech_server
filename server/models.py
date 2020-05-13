@@ -1,10 +1,21 @@
+from flask import request
 from flask_login import UserMixin
 from datetime import datetime
 from __init__ import db
 
 
+class Visit(db.Model):
+    __tablename__ = 'Visit'
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(1000), unique=True)
+    insert_time = db.Column(db.DateTime, default=datetime.now)
+
+    def __init__(self, ip):
+        self.ip = ip
+
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
+    __tablename__ = 'User'
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
@@ -33,31 +44,35 @@ class UploadFile(db.Model):
     file_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
 
-    filename = db.Column(db.String(2048))
-    hash_filename = db.Column(db.String(2048))
+    vidoe_filename = db.Column(db.String(2048))
+    vidoe_hash_filename = db.Column(db.String(2048))
     g_sensor_filename = db.Column(db.String(2048))
-    hash_g_sensor_filename = db.Column(db.String(2048))
+    g_sensor_hash_filename = db.Column(db.String(2048))
 
-    accident_time = db.Column(db.DateTime)
+    accident_time = db.Column(db.String(2048))
     car_to_motor = db.Column(db.String(2048))
     ownership = db.Column(db.String(2048))
     object_hit = db.Column(db.String(2048))
     country = db.Column(db.String(2048))
     description = db.Column(db.String(2048))
+    crash_type = db.Column(db.Boolean)
+    role = db.Column(db.Boolean)
 
     insert_time = db.Column(db.DateTime, default=datetime.now)
     analysis_state = db.Column(db.Boolean, default=False)
 
     def __init__(self, user_id, filename, hash_filename, g_sensor_filename, hash_g_sensor_filename, accident_time,
-                 car_or_motor, ownership, object_hit, country, description):
+                 car_or_motor, ownership, object_hit, country, description, crush_type, role):
         self.user_id = user_id
-        self.filename = filename
-        self.hash_filename = hash_filename
+        self.vidoe_filename = filename
+        self.vidoe_hash_filename = hash_filename
         self.g_sensor_filename = g_sensor_filename
-        self.hash_g_sensor_filename = hash_g_sensor_filename
+        self.g_sensor_hash_filename = hash_g_sensor_filename
         self.accident_time = accident_time
         self.car_to_motor = car_or_motor
         self.ownership = ownership
         self.object_hit = object_hit
         self.country = country
         self.description = description
+        self.crush_type = crush_type
+        self.role = role

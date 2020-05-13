@@ -20,7 +20,6 @@ def login_post():
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
-    print(user)
 
     # check if user actually exists
     # take the user supplied password, hash it, and compare it to the hashed password in database
@@ -96,4 +95,5 @@ def signup_ex_post():
 @login_required
 def logout():
     logout_user()
+    session['user_id'] = -1
     return redirect(url_for('main.index'))

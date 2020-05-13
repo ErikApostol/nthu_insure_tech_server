@@ -4,14 +4,14 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
 import hashlib
+import json
 
 from models import User, UploadFile
 from __init__ import db
 
 file = Blueprint('file', __name__)
 
-UPLOAD_FOLDER = 'E:\\nthu_insure_tech_server\\server\\upload'
-
+UPLOAD_FOLDER = './tmp'
 
 def sha_filename(filename):
     hash_name = filename.split('.')
@@ -21,33 +21,54 @@ def sha_filename(filename):
     return hash_name
 
 
-@file.route('/uploader', methods=['POST'])
+@file.route('/upload_video', methods=['POST'])
 @login_required
-def uploader():
+def upload_video():
     file = request.files['file']
     filename = file.filename
     hash_filename = sha_filename(filename)
-    g_sensor_file = request.files['g_sensor_file']
-    g_sensor_filename = g_sensor_file.filename
-    hash_g_sensor_filename = sha_filename(g_sensor_filename)
-
-    payload = request.get_json()
-    accident_time = payload.get('accident_time')
-    car_or_motor = payload.get('car_or_motor')
-    ownership = payload.get('ownership')
-    object_hit = payload.get('object_hit')
-    country = payload.get('country')
-    description = payload.get('description')
 
     if file:
         file.save(os.path.join(UPLOAD_FOLDER, hash_filename))
-    if g_sensor_file:
-        g_sensor_file.save(os.path.join(UPLOAD_FOLDER, hash_g_sensor_filename))
 
-    new_upload_file = UploadFile(session['user_id'], filename, hash_filename, g_sensor_filename, hash_g_sensor_filename,
-                                 accident_time, car_or_motor, ownership, object_hit, country, description)
+    session['video_filename'] = filename
+    session['video_hash_filename'] = hash_filename
+
+    return render_template('index.html', step_1=False, step_2=True)
+
+
+@file.route('/upload_g_sensor', methods=['POST'])
+@login_required
+def upload_g_sensor():
+    file = request.files['file']
+    filename = file.filename
+    hash_filename = sha_filename(filename)
+
+    if file:
+        file.save(os.path.join(UPLOAD_FOLDER, hash_filename))
+
+    session['g_sensor_filename'] = filename
+    session['g_sensor_hash_filename'] = hash_filename
+
+    return render_template('index.html', step_1=False, step_2=False)
+
+
+@file.route('/upload_info', methods=['POST'])
+@login_required
+def uploader():
+    accident_time = request.form['accident_time']
+    car_or_motor = request.form['car_or_motor']
+    ownership = request.form['ownership']
+    object_hit = request.form['object_hit']
+    country = request.form['country']
+    description = request.form['description']
+    crush_type = request.form['crush_type']
+    role = request.form['role']
+
+    new_upload_file = UploadFile(session['user_id'], session['video_filename'], session['video_hash_filename'], session['g_sensor_filename'], session['g_sensor_hash_filename'],
+                                 accident_time, car_or_motor, ownership, object_hit, country, description, crush_type, role)
 
     db.session.add(new_upload_file)
     db.session.commit()
 
-    return 'file uploaded successfully'
+    return render_template('index.html', step_1=True, step_2=True)
