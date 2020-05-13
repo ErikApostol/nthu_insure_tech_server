@@ -55,12 +55,14 @@ class UploadFile(db.Model):
     object_hit = db.Column(db.String(2048))
     country = db.Column(db.String(2048))
     description = db.Column(db.String(2048))
+    crash_type = db.Column(db.Boolean)
+    role = db.Column(db.Boolean)
 
     insert_time = db.Column(db.DateTime, default=datetime.now)
     analysis_state = db.Column(db.Boolean, default=False)
 
     def __init__(self, user_id, filename, hash_filename, g_sensor_filename, hash_g_sensor_filename, accident_time,
-                 car_or_motor, ownership, object_hit, country, description):
+                 car_or_motor, ownership, object_hit, country, description, crush_type, role):
         self.user_id = user_id
         self.vidoe_filename = filename
         self.vidoe_hash_filename = hash_filename
@@ -72,3 +74,5 @@ class UploadFile(db.Model):
         self.object_hit = object_hit
         self.country = country
         self.description = description
+        self.crush_type = crush_type
+        self.role = role
