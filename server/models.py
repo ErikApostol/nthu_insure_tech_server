@@ -55,8 +55,8 @@ class UploadFile(db.Model):
     object_hit = db.Column(db.String(2048))
     country = db.Column(db.String(2048))
     description = db.Column(db.String(2048))
-    crash_type = db.Column(db.Boolean)
-    role = db.Column(db.Boolean)
+    crush_type = db.Column(db.String(2048))
+    role = db.Column(db.String(2048))
 
     insert_time = db.Column(db.DateTime, default=datetime.now)
     analysis_state = db.Column(db.Boolean, default=False)
