@@ -16,7 +16,12 @@ def index():
         db.session.add(new_visitor)
         db.session.commit()
 
-    return render_template('index.html', step_1=True, step_2=True)
+    stats = home()
+
+    if hasattr(current_user, 'name'):
+        return render_template('index.html', name=current_user.name, step_1=True, step_2=True, stats=stats)
+    else:
+        return render_template('index.html', step_1=True, step_2=True, stats=stats)
 
 
 @main.route('/profile')
