@@ -25,7 +25,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>2</h3>
+                                <h3>{{ stats.get_json()['your_video'] }}</h3>
 
                                 <p>支您個人已上傳影片</p>
                             </div>
@@ -40,8 +40,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>209</h3>
-
+                                <h3>{{ stats.get_json()['all_video'] }}</h3>
                                 <p>支全站已上傳影片</p>
                             </div>
                             <div class="icon">
@@ -50,8 +49,35 @@
                             <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col --> <div class="col-lg-3 col-6"> <!-- small box --> <div class="small-box bg-warning"> <div class="inner"> <h3>313</h3> <p>名用戶註冊</p> </div> <div class="icon"> <i class="ion ion-person-add"></i> </div> <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a> </div> </div> <!-- ./col --> <div class="col-lg-3 col-6"> <!-- small box --> <div class="small-box bg-danger"> <div class="inner"> <h3>1328</h3> <p>人已參觀本站</p> </div> <div class="icon"> <i class="ion ion-android-people"></i> </div> <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a> </div> </div> <!-- ./col --> </div> <!-- /.row --> <!-- Main row --> <div class="row"> <!-- Left col -->
-                    <section class="col-lg-7 connectedSortable">
+                    <!-- ./col --> 
+                    <div class="col-lg-3 col-6"> 
+                        <!-- small box --> 
+                        <div class="small-box bg-warning"> 
+                            <div class="inner"> 
+                                <h3>{{ stats.get_json()['number_of_user_registered'] }}</h3> 
+                                <p>名用戶註冊</p> 
+                            </div> 
+                            <div class="icon"> <i class="ion ion-person-add"></i> </div> 
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a> 
+                        </div> 
+                    </div> 
+                    <!-- ./col --> 
+                    <div class="col-lg-3 col-6"> 
+                        <!-- small box --> 
+                        <div class="small-box bg-danger"> 
+                            <div class="inner"> 
+                                <h3>{{ stats.get_json()['visited'] }}</h3> 
+                                <p>人已參觀本站</p> 
+                            </div> 
+                            <div class="icon"> <i class="ion ion-android-people"></i> </div> 
+                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a> 
+                        </div> 
+                    </div> 
+                    <!-- ./col --> 
+                </div> <!-- /.row --> 
+
+                <!-- Main row --> 
+                <div class="row"> 
 
                         <!-- DIRECT CHAT -->
                         <div class="card direct-chat direct-chat-primary">
@@ -73,7 +99,7 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <!-- Conversations are loaded here -->
-				<form method="get" action="{{ url_for('forum') }}">
+				<form method="get" action="/forum/filter">
 				    國家 
                                     <select id="country" name="country"> 
                                         <option value="Afganistan">Afghanistan</option>
@@ -344,13 +370,14 @@
                                 <!-- list of discussion topics -->
                                 <div class="my-3 p-3 bg-white rounded shadow-sm">
                                     <h6 class="border-bottom border-gray pb-2 mb-0">符合篩選條件的影片</h6>
-				    {% for video_discussion in filtered_results %}
+				    {% for i in range(0, forum_data['count']) %}
                                         <div class="media text-muted pt-3">
                                             <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
                                             <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                                 <strong class="d-block text-gray-dark"><a href="#"></a></strong>
-                                                Donec id elit non mi porta gravida at eget metus. 
-                                                Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+                                                {{ forum_data['content'][i]['user_name'] }} 
+                                                {{ forum_data['content'][i]['time'] }} 
+                                                {{ forum_data['content'][i]['comment'] }} 
                                             </p>
                                         </div>
 				    {% endfor %}
@@ -369,9 +396,6 @@
                         </div>
                         <!--/.direct-chat -->
 
-                    </section>
-                    <!-- /.Left col -->
-                    <!-- right col (We are only adding the ID to make the widgets sortable)-->
                 </div>
                 <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->

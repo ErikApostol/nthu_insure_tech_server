@@ -7,9 +7,11 @@ import hashlib
 import json
 
 from models import User, UploadFile
+from main import home
 from __init__ import db
 
 file = Blueprint('file', __name__)
+
 
 UPLOAD_FOLDER = './tmp'
 
@@ -33,8 +35,10 @@ def upload_video():
 
     session['video_filename'] = filename
     session['video_hash_filename'] = hash_filename
+    
+    stats = home()
 
-    return render_template('index.html', step_1=False, step_2=True)
+    return render_template('index.html', step_1=False, step_2=True, stats=stats)
 
 
 @file.route('/upload_g_sensor', methods=['POST'])
@@ -50,7 +54,9 @@ def upload_g_sensor():
     session['g_sensor_filename'] = filename
     session['g_sensor_hash_filename'] = hash_filename
 
-    return render_template('index.html', step_1=False, step_2=False)
+    stats = home()
+
+    return render_template('index.html', step_1=False, step_2=False, stats=stats)
 
 
 @file.route('/upload_info', methods=['POST'])
@@ -71,4 +77,6 @@ def uploader():
     db.session.add(new_upload_file)
     db.session.commit()
 
-    return render_template('index.html', step_1=True, step_2=True)
+    stats = home()
+
+    return render_template('index.html', step_1=True, step_2=True, stats=stats)
