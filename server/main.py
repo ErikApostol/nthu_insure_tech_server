@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, jsonify, request
+from flask import Blueprint, render_template, session, jsonify, request, redirect, url_for
 from flask_login import login_required, current_user
 from __init__ import db
 
@@ -51,3 +51,8 @@ def home():
     }
 
     return jsonify(ret)
+
+
+@main.route('/home/total_video')
+def home_total_video():
+    return redirect(url_for('forum.forum_index'))
