@@ -8,24 +8,24 @@ from __init__ import db
 
 forum = Blueprint('forum', __name__)
 
-fake_data = [
-    {
-        "comment_id": 1,
-        "insert_time": "18:32, May 17, 2020",
-        "user_id": 3,
-        "user_email": "3@3.com",
-        "user_name": "Erik",
-        "comment": "comment1"
-    },
-    {
-        "comment_id": 2,
-        "insert_time": "18:33, May 17, 2020",
-        "user_id": 4,
-        "user_email": "4@4.com",
-        "user_name": "Brian",
-        "comment": "comment2"
-    },
-]
+#fake_data = [
+#    {
+#        "comment_id": 1,
+#        "insert_time": "18:32, May 17, 2020",
+#        "user_id": 3,
+#        "user_email": "3@3.com",
+#        "user_name": "Erik",
+#        "comment": "comment1"
+#    },
+#    {
+#        "comment_id": 2,
+#        "insert_time": "18:33, May 17, 2020",
+#        "user_id": 4,
+#        "user_email": "4@4.com",
+#        "user_name": "Brian",
+#        "comment": "comment2"
+#    },
+#]
 
 @forum.route('/forum/filter', methods=['POST'])
 def forum_filter():
@@ -61,25 +61,25 @@ def forum_filter():
 @forum.route('/forum')
 def forum_index():
     data = ForumComment.query.order_by(ForumComment.insert_time.desc()).all()
-    data = fake_data
+    #data = fake_data
 
     content_list = []
     for d in data:
         content_list.append({
-            #"id": d.comment_id,
-            #"time": d.insert_time,
-            #"user_id": d.user_id,
-            #"user_email": User.query.filter_by(user_id=d.user_id).first().email,
-            #"user_name": User.query.filter_by(user_id=d.user_id).first().name,
-            #"comment": d.comment
+            "id": d.comment_id,
+            "time": d.insert_time,
+            "user_id": d.user_id,
+            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
+            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
+            "comment": d.comment
 
             #fake_data
-            "id": d['comment_id'],
-            "time": d['insert_time'],
-            "user_id": d['user_id'],
-            "user_email": d['user_email'],
-            "user_name": d['user_name'],
-            "comment": d['comment']
+            #"id": d['comment_id'],
+            #"time": d['insert_time'],
+            #"user_id": d['user_id'],
+            #"user_email": d['user_email'],
+            #"user_name": d['user_name'],
+            #"comment": d['comment']
         })
 
     return_data = {
