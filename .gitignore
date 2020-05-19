@@ -1,6 +1,10 @@
 *db
 venv/*
 bin/*
+include/*
+lib/*
+server/cert.pem
+server/key.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

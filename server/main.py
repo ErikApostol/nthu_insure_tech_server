@@ -61,3 +61,18 @@ def home_total_video():
 @main.route('/home/your_video')
 def home_your_video():
     return redirect(url_for('forum.users_own_video'))
+
+# Source: https://medium.com/@ericwuehler/using-let-s-encrpyt-9175feb76632
+#@main.route('/.well-known/acme-challenge/<challenge>')
+#def letsencrypt_check(challenge):
+#    challenge_response = {
+#        "<challenge_token>":"<challenge_response>",
+#        "<challenge_token>":"<challenge_response>"
+#    }
+#    return Response(challenge_response[challenge], mimetype='text/plain')
+
+# redirect all http to https
+@main.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        return redirect(request.url.replace('http://', 'https://'), code=301)
