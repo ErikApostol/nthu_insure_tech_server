@@ -56,3 +56,8 @@ def home():
 @main.route('/home/total_video')
 def home_total_video():
     return redirect(url_for('forum.forum_index'))
+
+
+@main.route('/home/your_video')
+def home_your_video():
+    return redirect(url_for('forum.users_own_video'))

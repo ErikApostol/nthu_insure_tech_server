@@ -92,6 +92,32 @@ def forum_index():
     return render_template('forum.html', forum_data=return_data, stats=stats)
 
 
+@forum.route('/users_own_video')
+@login_required
+def users_own_video():
+    data = ForumComment.query.filter_by(user_id=session.get('user_id')).all()
+
+    content_list = []
+    for d in data:
+        content_list.append({
+            "id": d.comment_id,
+            "time": d.insert_time,
+            "user_id": d.user_id,
+            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
+            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
+            "comment": d.comment
+        })
+
+    return_data = {
+        "count": len(data),
+        "content": content_list
+    }
+
+    stats = home()
+
+    return render_template('forum.html', forum_data=return_data, stats=stats)
+
+
 @forum.route('/get_forum_data')
 # @login_required
 def get_forum_data():
