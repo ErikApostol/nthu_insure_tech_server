@@ -5,6 +5,8 @@ include/*
 lib/*
 server/cert.pem
 server/key.pem
+server/tmp/*
+#server/Crash_Detection/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
