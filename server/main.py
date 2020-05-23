@@ -72,7 +72,7 @@ def home_your_video():
 #    return Response(challenge_response[challenge], mimetype='text/plain')
 
 # redirect all http to https
-@main.before_request
-def before_request():
-    if request.url.startswith('http://'):
-        return redirect(request.url.replace('http://', 'https://'), code=301)
+# @main.before_request
+# def before_request():
+#     if request.url.startswith('http://'):
+#         return redirect(request.url.replace('http://', 'https://'), code=301)
