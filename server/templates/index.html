@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -27,7 +28,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ stats.get_json()['your_video'] }}</h3>
+                                <h3 id="your_video"></h3>
 
                                 <p>支您個人已上傳影片</p>
                             </div>
@@ -42,7 +43,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ stats.get_json()['all_video'] }}</h3>
+                                <h3 id="all_video"></h3>
 
                                 <p>支全站已上傳影片</p>
                             </div>
@@ -57,7 +58,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{ stats.get_json()['number_of_user_registered'] }}</h3>
+                                <h3 id="number_of_user_registered"></h3>
 
                                 <p>名用戶註冊</p>
                             </div>
@@ -71,7 +72,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{ stats.get_json()['visited'] }}</h3>
+                                <h3 id="visited"></h3>
 
                                 <p>人已參觀本站</p>
                             </div>
@@ -494,4 +495,5 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
+        <script src="{{ url_for('static', filename='index.js') }}"></script>
 {% endblock %}
