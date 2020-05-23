@@ -44,4 +44,4 @@ if __name__ == "__main__":
     app = create_app()
     # db.create_all(app)
     app.debug = True
-    app.run(host='0.0.0.0', port=80, ssl_context=('cert.pem', 'key.pem'))
+    app.run()
