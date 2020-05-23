@@ -1,3 +1,4 @@
+server/db.sqlite
 *db
 venv/*
 bin/*

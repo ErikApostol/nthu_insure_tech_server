@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script src="{{ url_for('static', filename='forum.js') }}"></script>
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -383,11 +384,11 @@
 				    {% endfor %}
                                 </div>
 
-                                <form method="post" enctype="application/json" action="/comment">
+                                <form enctype="application/json">
                                     留言<input type="text" name="comment" id="comment"><br>
                                     針對影片<input type="text" name="video_id" id="video_id"><br>
                                     標籤<input type="text" name="tag" id="tag"><br>
-                                    <input type="submit">
+                                    <input type="submit" onclick="post_comment()">
                                 </form>
 
 

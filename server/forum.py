@@ -8,24 +8,6 @@ from __init__ import db
 
 forum = Blueprint('forum', __name__)
 
-#fake_data = [
-#    {
-#        "comment_id": 1,
-#        "insert_time": "18:32, May 17, 2020",
-#        "user_id": 3,
-#        "user_email": "3@3.com",
-#        "user_name": "Erik",
-#        "comment": "comment1"
-#    },
-#    {
-#        "comment_id": 2,
-#        "insert_time": "18:33, May 17, 2020",
-#        "user_id": 4,
-#        "user_email": "4@4.com",
-#        "user_name": "Brian",
-#        "comment": "comment2"
-#    },
-#]
 
 @forum.route('/forum/filter', methods=['POST'])
 def forum_filter():
@@ -47,7 +29,8 @@ def forum_filter():
             "user_id": d.user_id,
             "user_email": User.query.filter_by(user_id=d.user_id).first().email,
             "user_name": User.query.filter_by(user_id=d.user_id).first().name,
-            "comment": d.comment
+            "comment": d.comment,
+            "video_id": d.video_id
         })
 
     return_data = {
@@ -69,17 +52,10 @@ def forum_index():
             "id": d.comment_id,
             "time": d.insert_time,
             "user_id": d.user_id,
-            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
-            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
-            "comment": d.comment
-
-            #fake_data
-            #"id": d['comment_id'],
-            #"time": d['insert_time'],
-            #"user_id": d['user_id'],
-            #"user_email": d['user_email'],
-            #"user_name": d['user_name'],
-            #"comment": d['comment']
+            "user_email": User.query.filter_by(id=d.user_id).first().email,
+            "user_name": User.query.filter_by(id=d.user_id).first().name,
+            "comment": d.comment,
+            "video_id": d.video_id
         })
 
     return_data = {
@@ -105,7 +81,8 @@ def users_own_video():
             "user_id": d.user_id,
             "user_email": User.query.filter_by(user_id=d.user_id).first().email,
             "user_name": User.query.filter_by(user_id=d.user_id).first().name,
-            "comment": d.comment
+            "comment": d.comment,
+            "video_id": d.video_id
         })
 
     return_data = {
@@ -129,9 +106,10 @@ def get_forum_data():
             "id": d.comment_id,
             "time": d.insert_time,
             "user_id": d.user_id,
-            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
-            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
-            "comment": d.comment
+            "user_email": User.query.filter_by(id=d.user_id).first().email,
+            "user_name": User.query.filter_by(id=d.user_id).first().name,
+            "comment": d.comment,
+            "video_id": d.video_id
         })
 
     return_data = {
@@ -149,7 +127,7 @@ def post_comment_data():
     data = request.get_json()
     comment = data.get('comment')
     video_id = data.get('video_id')
-    tag = ','.join(data.get('tag'))
+    tag = data.get('tag')
 
     new_comment = ForumComment(comment=comment, user_id=user_id,
                                  video_id=video_id, tag=tag)
