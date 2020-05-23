@@ -10,6 +10,7 @@ forum = Blueprint('forum', __name__)
 
 
 @forum.route('/forum/filter', methods=['POST'])
+# @login_required
 def forum_filter():
     country = request.form['country']
     car_or_motor = request.form['car_or_motor']
@@ -27,8 +28,8 @@ def forum_filter():
             "id": d.comment_id,
             "time": d.insert_time,
             "user_id": d.user_id,
-            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
-            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
+            "user_email": User.query.filter_by(id=d.user_id).first().email,
+            "user_name": User.query.filter_by(id=d.user_id).first().name,
             "comment": d.comment,
             "video_id": d.video_id
         })
@@ -79,8 +80,8 @@ def users_own_video():
             "id": d.comment_id,
             "time": d.insert_time,
             "user_id": d.user_id,
-            "user_email": User.query.filter_by(user_id=d.user_id).first().email,
-            "user_name": User.query.filter_by(user_id=d.user_id).first().name,
+            "user_email": User.query.filter_by(id=d.user_id).first().email,
+            "user_name": User.query.filter_by(id=d.user_id).first().name,
             "comment": d.comment,
             "video_id": d.video_id
         })
