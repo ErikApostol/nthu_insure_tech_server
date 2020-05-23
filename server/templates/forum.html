@@ -32,7 +32,7 @@
                             <div class="icon">
                                 <i class="ion ion-ios-film"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/home/your_video" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -46,7 +46,7 @@
                             <div class="icon">
                                 <i class="ion ion-android-film"></i>
                             </div>
-                            <a href="#" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/home/total_video" class="small-box-footer">詳細資訊 <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col --> 
@@ -382,6 +382,13 @@
                                         </div>
 				    {% endfor %}
                                 </div>
+
+                                <form method="post" enctype="application/json" action="/comment">
+                                    留言<input type="text" name="comment" id="comment"><br>
+                                    針對影片<input type="text" name="video_id" id="video_id"><br>
+                                    標籤<input type="text" name="tag" id="tag"><br>
+                                    <input type="submit">
+                                </form>
 
 
                                 <!-- Contacts are loaded here -->

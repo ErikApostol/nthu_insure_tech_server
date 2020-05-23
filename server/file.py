@@ -71,8 +71,19 @@ def uploader():
     crush_type = request.form['crush_type']
     role = request.form['role']
 
-    new_upload_file = UploadFile(session['user_id'], session['video_filename'], session['video_hash_filename'], session['g_sensor_filename'], session['g_sensor_hash_filename'],
-                                 accident_time, car_or_motor, ownership, object_hit, country, description, crush_type, role)
+    new_upload_file = UploadFile(session['user_id'],
+                                 session['video_filename'],
+                                 session['video_hash_filename'],
+                                 session['g_sensor_filename'],
+                                 session['g_sensor_hash_filename'],
+                                 accident_time,
+                                 car_or_motor,
+                                 ownership,
+                                 object_hit,
+                                 country,
+                                 description,
+                                 crush_type,
+                                 role)
 
     db.session.add(new_upload_file)
     db.session.commit()
