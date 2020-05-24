@@ -19,9 +19,9 @@ def index():
     stats = home()
 
     if hasattr(current_user, 'name'):
-        return render_template('index.html', name=current_user.name, step_1=True, step_2=True, stats=stats)
+        return render_template('index.html', name=current_user.name, step_1=True, step_2=True)
     else:
-        return render_template('index.html', step_1=True, step_2=True, stats=stats)
+        return render_template('index.html', step_1=True, step_2=True)
 
 
 @main.route('/profile')

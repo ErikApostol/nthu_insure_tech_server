@@ -7,7 +7,12 @@ lib/*
 server/cert.pem
 server/key.pem
 server/tmp/*
-#server/Crash_Detection/*
+
+# crash detedction
+Crash_Detection/yolo.h5
+Crash_Detection/input_files/*
+Crash_Detection/output_files/*
+Crash_Detection.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
