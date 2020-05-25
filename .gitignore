@@ -7,6 +7,7 @@ lib/*
 server/cert.pem
 server/key.pem
 server/tmp/*
+*.mp4
 
 # crash detedction
 Crash_Detection/yolo.h5

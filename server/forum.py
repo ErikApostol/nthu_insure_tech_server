@@ -56,6 +56,7 @@ def forum_index():
             "user_email": User.query.filter_by(id=d.user_id).first().email,
             "user_name": User.query.filter_by(id=d.user_id).first().name,
             "comment": d.comment,
+            "title": d.title,
             "video_id": d.video_id
         })
 
@@ -64,9 +65,7 @@ def forum_index():
         "content": content_list
     }
 
-    stats = home()
-
-    return render_template('forum.html', forum_data=return_data, stats=stats)
+    return render_template('forum.html', forum_data=return_data)
 
 
 @forum.route('/users_own_video')
@@ -83,6 +82,7 @@ def users_own_video():
             "user_email": User.query.filter_by(id=d.user_id).first().email,
             "user_name": User.query.filter_by(id=d.user_id).first().name,
             "comment": d.comment,
+            "title": d.title,
             "video_id": d.video_id
         })
 
@@ -107,6 +107,7 @@ def get_forum_data():
             "id": d.comment_id,
             "time": d.insert_time,
             "user_id": d.user_id,
+            "title": d.title,
             "user_email": User.query.filter_by(id=d.user_id).first().email,
             "user_name": User.query.filter_by(id=d.user_id).first().name,
             "comment": d.comment,
@@ -126,11 +127,13 @@ def get_forum_data():
 def post_comment_data():
     user_id = session['user_id']
     data = request.get_json()
+    print(data)
     comment = data.get('comment')
     video_id = data.get('video_id')
     tag = data.get('tag')
+    title = data.get('title')
 
-    new_comment = ForumComment(comment=comment, user_id=user_id,
+    new_comment = ForumComment(title=title, comment=comment, user_id=user_id,
                                  video_id=video_id, tag=tag)
     db.session.add(new_comment)
     db.session.commit()

@@ -16,18 +16,25 @@ def index():
         db.session.add(new_visitor)
         db.session.commit()
 
-    stats = home()
-
-    if hasattr(current_user, 'name'):
-        return render_template('index.html', name=current_user.name, step_1=True, step_2=True)
-    else:
-        return render_template('index.html', step_1=True, step_2=True)
+    return render_template('index.html')
 
 
 @main.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+
+@main.route('/anaylsis_result')
+@login_required
+def anaylsis_result():
+    return render_template('result.html')
+
+
+@main.route('/new_post')
+@login_required
+def new_post():
+    return render_template('new_post.html')
 
 
 @main.route('/home')
@@ -61,6 +68,21 @@ def home_total_video():
 @main.route('/home/your_video')
 def home_your_video():
     return redirect(url_for('forum.users_own_video'))
+
+
+@main.route('/get_username')
+def get_uaername():
+    uaername = ''
+    try:
+        username = current_user.name
+    except:
+        pass
+
+    ret = {
+        'username': username
+    }
+
+    return jsonify(ret)
 
 # Source: https://medium.com/@ericwuehler/using-let-s-encrpyt-9175feb76632
 #@main.route('/.well-known/acme-challenge/<challenge>')

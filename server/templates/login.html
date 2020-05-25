@@ -1,45 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
-    <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="notification is-danger">
-                {{ messages[0] }}
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                            <div class="card-body">
+                                <form method="POST" action="/login">
+                                    <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Email</label><input class="form-control py-4" type="email" name="email" aria-describedby="emailHelp" placeholder="請輸入信箱" /></div>
+                                    <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Password</label><input class="form-control py-4" type="password" name="password" placeholder="請輸入密碼" /></div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
+                                    </div>
+                                    <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="/signup">沒有帳號?</a><button class="btn btn-primary">送出</button></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endif %}
-        {% endwith %}
-        <!-- Source: https://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers -->
-        <div class="outer" style="display: table; position: absolute; top: 0; left: 0; height: 100%; width: 100%;">
-        <div class="middle" style="display: table-cell; vertical-align: middle;">
-        <div class="card mx-auto" style="width: 40rem;">
-        <div class="card-body">
-            <form method="POST" action="/login">
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
+        </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
                     </div>
                 </div>
-        
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Remember me
-                    </label>
-                </div>
-                <button class="button is-block is-info is-large is-fullwidth">Login</button>
-            </form>
-        </div>
-        </div>
-        </div>
-        </div>
+            </div>
+        </footer>
     </div>
 </div>
 {% endblock %}
