@@ -39,7 +39,6 @@ def new_post():
 
 @main.route('/home')
 def home():
-    print(session.get('user_id'))
     from models import UploadFile
     your_video = len(UploadFile.query.filter_by(user_id = session.get('user_id')).all())
     all_video = len(UploadFile.query.all())

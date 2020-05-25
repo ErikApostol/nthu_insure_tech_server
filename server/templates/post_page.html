@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link href="{{ url_for('static', filename='css/forum.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.2.89/css/materialdesignicons.min.css">
+{% endblock %}
+
+{% block content %}
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="">
+                            <div class="">
+                                <p class="text-content text-center font-weight-light my-4">
+                                    {{ data['post_content']['title'] }}
+                                    <span class="solved" title="Solved">
+                                        <i class="mdi mdi-checkbox-marked-circle"></i>
+                                    </span>
+                                </p>
+                                <p class="tags-content text-center">
+                                    <p class="text-content text-center">
+                                        <a class="tag is-rounded is-primary" href="/forum/filter?filter={{ data['video_content']['country'] }}">
+                                            {{ data['video_content']['country'] }}
+                                        </a>
+                                        <a class="tag is-rounded is-success" href="/forum/filter?filter={{ data['video_content']['role'] }}">
+                                            {{ data['video_content']['role'] }}
+                                        </a>
+                                        <a class="tag is-rounded is-danger" href="/forum/filter?filter={{ data['video_content']['object_hit'] }}">
+                                            {{ data['video_content']['object_hit'] }}
+                                        </a>
+                                        <a class="tag is-rounded is-link" href="/forum/filter?filter={{ data['video_content']['ownership'] }}">
+                                            {{ data['video_content']['ownership'] }}
+                                        </a>
+                                        <a class="tag is-rounded is-info" href="/forum/filter?filter={{ data['video_content']['car_to_motor'] }}">
+                                            {{ data['video_content']['car_to_motor'] }}
+                                        </a>
+                                        <a class="tag is-rounded is-warning" href="/forum/filter?filter={{ data['video_content']['time'] }}">
+                                            {{ data['post_content']['time'] }}
+                                        </a>
+                                    </p>
+                                </p>
+                            </div>
+
+                            <div class="card-body">
+                                <form>
+                                    <div class="box forum">
+                                        <article class="media">
+                                            <div class="media-content">
+                                                <div class="content list-forum">
+                                                    <p class="text-content font-weight-light">
+                                                        ＃0  post by {{ data['post_content']['user_name'] }}
+                                                    </p>
+                                                    <p class="text-content">
+                                                        {{ data['post_content']['comment'] }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </form>
+
+                                <form>
+                                    <div class="box forum">
+                                        <article class="media">
+                                            <div class="media-content">
+                                                <div class="content list-forum">
+                                                    <video id="movie" preload controls loop width="480" height="270" class="center">
+                                                        <source src="{{url_for('static',filename='Crash_Detection/input_files/' + data['video_content']['vidoe_hash_filename'])}}" type="video/mp4">
+                                                        Your browser does not support the video tag.
+                                                    </video>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </form>
+
+                                <form action="/comment" method="GET">
+                                    <div class="box forum">
+                                        <article class="media">
+                                            <div class="media-content">
+                                                <div class="content list-forum">
+                                                    <div class="form-group">
+                                                        <p>評論
+                                                            <textarea class="form-control" id="comment" name="comment">
+                                                            </textarea>
+                                                        </p>
+                                                    </div>
+                                                    <input type="hidden" id="post_id" name="post_id" value="{{ data['post_content']['post_id'] }}">
+                                                    <button class="btn btn-primary" onclick="post_comment()">送出</button>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </form>
+                                {% for i in range(0, data['comment_count']) %}
+                                    <form>
+                                        <div class="box forum">
+                                            <article class="media">
+                                                <div class="media-content">
+                                                    <div class="content list-forum">
+                                                        <p class="text-content font-weight-light">
+                                                            ＃{{ i+1 }} post by {{ data['comment_content'][i]['user_name'] }}
+                                                        </p>
+                                                        <p class="text-content">
+                                                            {{ data['comment_content'][i]['comment'] }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </form>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/forum.js') }}"></script>
+{% endblock %}

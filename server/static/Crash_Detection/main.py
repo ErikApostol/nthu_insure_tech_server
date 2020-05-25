@@ -4,8 +4,9 @@ import json
 import crash_detect
 import object_detection
 import sys
+from config import *
 
-input_files_path = "input_files/"
+input_files_path = CRASH_DETECTION_ROOT + "/input_files/"
 video_file_name = sys.argv[1]
 severity_api = 'https://motor-crash.herokuapp.com/api'
 object_type = {
@@ -17,7 +18,7 @@ object_type = {
 }
 
 def main():
-	cd = crash_detect.crash_detect_module(video_file_name)
+	cd = crash_detect.crash_detect_module(input_files_path + video_file_name)
 	cd.detect_process()
 	print ('影片分析特徵:')
 	print ('1.白天或黑夜: ', cd.get_night_or_moring() )
@@ -47,8 +48,6 @@ def main():
 	json_payload = json.dumps(data)
 	severity_response = requests.post(severity_api, json={'input': json_payload})
 	print("碰撞嚴重程度: ", severity_response.json()['Severity_Score'])
-
-	return 0
 
 if __name__ == "__main__":
     main()

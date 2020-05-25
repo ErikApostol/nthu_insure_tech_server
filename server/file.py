@@ -22,7 +22,7 @@ class detection:
     def crash_detection(video_name):
         try:
             detect_script = CRASH_DETECTION_ROOT+'/main.py'
-            video = CRASH_DETECTION_INTPUT_FILES + video_name
+            video = video_name
             # print('python', detect_script, video_name)
             p = subprocess.Popen(['python', detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out = p.communicate()
@@ -82,7 +82,7 @@ def get_result_content():
         "content": content_list
     }
 
-    print(return_data)
+    # print(return_data)
     return render_template('result_content.html', data=return_data)
 
 

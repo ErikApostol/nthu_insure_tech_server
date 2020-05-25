@@ -2,6 +2,7 @@ from imageai.Detection import VideoObjectDetection
 import os
 import cv2
 import operator
+from config import *
 
 class object_detection:
   def __init__(self, video_file_name, crash_first_second, crash_duration_second):
@@ -9,8 +10,8 @@ class object_detection:
     self.crash_first_second = crash_first_second
     self.crash_duration_second = crash_duration_second
     self.current_path = os.getcwd()
-    self.input_files_path = "input_files/"
-    self.output_files_path = "output_files/"
+    self.input_files_path = CRASH_DETECTION_ROOT + "/input_files/"
+    self.output_files_path = CRASH_DETECTION_ROOT + "/output_files/"
 
     # basic video information
     self.cap = cv2.VideoCapture(self.input_files_path + self.video_file_name)
@@ -63,13 +64,15 @@ class object_detection:
 
     video_detector = VideoObjectDetection()
     video_detector.setModelTypeAsYOLOv3()
-    video_detector.setModelPath(os.path.join(self.current_path, "yolo.h5"))
+    video_detector.setModelPath(CRASH_DETECTION_ROOT + "/yolo.h5")
     video_detector.loadModel()
     custom_objects = video_detector.CustomObjects(person=True, bicycle=True, motorcycle=True, car=True, bus=True, truck=True)
 
+    print(self.output_files_path)
+
     video_detector.detectCustomObjectsFromVideo(custom_objects=custom_objects,
                                       input_file_path=os.path.join(self.current_path, self.input_files_path + self.video_file_name), 
-                                      output_file_path=os.path.join(self.current_path, self.output_files_path + self.video_file_name.split('.')[0] + "yolo") ,  
+                                      output_file_path=os.path.join(self.current_path, self.output_files_path + self.video_file_name.split('.')[0]) ,  
                                       frames_per_second=self.fps, per_second_function=forSeconds, 
                                       per_frame_function=forFrame, 
                                       per_minute_function=forMinute, 

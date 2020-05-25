@@ -7,9 +7,9 @@
 {% block content %}
 <main>
     <div class="container-fluid">
-        <h1 class="mt-4">討論區</h1>
+        <h1 class="mt-4">討論區搜尋結果</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">討論區</li>
+            <li class="breadcrumb-item active">搜尋結果 符合 {{ forum_data['count'] }} 筆資料</li>
         </ol>
         {% for i in range(0, forum_data['count']) %}
             <div class="box forum">

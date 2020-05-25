@@ -9,8 +9,11 @@ async function get_username() {
     if(data["username"] == "") {
         document.getElementById("login_status").innerHTML = "請登入";
         document.getElementById("username").textContent = "zzz";
+        document.getElementById("login_logout").href = "/login";
     } else {
         document.getElementById("username").textContent = data["username"];
+        document.getElementById("login_logout").href = "/logout";
+        document.getElementById("login_logout").innerHTML = "Logout";
     }
 }
 

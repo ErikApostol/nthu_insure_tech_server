@@ -25,6 +25,22 @@ class ForumComment(db.Model):
     __tablename__ = 'ForumComment'
     comment_id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(2048))
+    insert_time = db.Column(db.DateTime, default=datetime.now)
+    user_id = db.Column(db.Integer)
+    post_id = db.Column(db.Integer)
+    user_name = db.Column(db.String(100))
+
+    def __init__(self, comment, user_id, post_id, user_name):
+        self.comment = comment
+        self.user_id = user_id
+        self.post_id = post_id
+        self.user_name = user_name
+
+
+class ForumPost(db.Model):
+    __tablename__ = 'ForumPost'
+    post_id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(2048))
     title = db.Column(db.String(100))
     insert_time = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer)

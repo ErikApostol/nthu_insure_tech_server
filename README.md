@@ -1,3 +1,7 @@
+# CONFIG
+- server/config.py
+- server/static/Crash_Detection/config.py
+
 # API
 
 ## FORUM

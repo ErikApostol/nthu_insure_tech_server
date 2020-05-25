@@ -44,5 +44,4 @@ if __name__ == "__main__":
     app = create_app()
     # db.create_all(app)
     app.debug = True
-    print(app.static_url_path)
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=7777)

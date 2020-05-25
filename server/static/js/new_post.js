@@ -24,7 +24,7 @@ function post_comment() {
     };
 
     console.log(data);
-    post_data("/comment", data);
+    post_data("/post", data);
 }
 
 async function insert_data() {
