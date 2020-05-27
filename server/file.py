@@ -7,6 +7,7 @@ import hashlib
 import json
 import multiprocessing as mp
 import subprocess
+import datetime
 
 from models import User, UploadFile
 from main import home
@@ -23,10 +24,9 @@ class detection:
         try:
             detect_script = CRASH_DETECTION_ROOT+'/main.py'
             video = video_name
-            # print('python', detect_script, video_name)
+            print('python', detect_script, video)
             p = subprocess.Popen(['python', detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out = p.communicate()
-            print(out)
 
             upload_file = UploadFile.query.filter_by(vidoe_hash_filename=video_name).first()
             if len(str(out[0], encoding = "utf-8")) != 0:
@@ -37,18 +37,26 @@ class detection:
                 upload_file.analysis_state = 'FAIL'
                 db.session.commit()
             
-            # print('done')
         except:
+            db.session.rollback()
             upload_file = UploadFile.query.filter_by(vidoe_hash_filename=video_name).first()
             upload_file.analysis_state = 'FAIL'
             db.session.commit()
 
 def sha_filename(filename):
     hash_name = filename.split('.')
-    hash_name[0] = hashlib.sha256(filename.split('.')[0].encode('utf-8')).hexdigest()
+    hash_name[0] = hashlib.sha256((filename.split('.')[0] + str(datetime.datetime.now())).encode('utf-8')).hexdigest()
     hash_name = '.'.join(hash_name)
 
     return hash_name
+
+
+def delete_waiting_list():
+    upload_file = UploadFile.query.filter_by(analysis_state='WAITNG').all()
+    print(len(upload_file))
+    for f in upload_file:
+        db.session.delete(f)
+        db.session.commit()
 
 
 @file.route('/get_result_content', methods=['GET'])
@@ -141,12 +149,11 @@ def upload_success():
 @file.route('/upload_video', methods=['POST'])
 @login_required
 def upload_video():
-    print('inin')
     file = request.files['file']
     filename = file.filename
     hash_filename = sha_filename(filename)
 
-    # print(hash_filename)
+    print(hash_filename)
 
     if file:
         file.save(os.path.join(UPLOAD_FOLDER, hash_filename))
@@ -166,8 +173,8 @@ def upload_video():
     new_upload_file = UploadFile(session['user_id'],
                                  session['video_filename'],
                                  session['video_hash_filename'],
-                                 session['g_sensor_filename'],
-                                 session['g_sensor_hash_filename'],
+                                 'g_sensor_filename',
+                                 'g_sensor_hash_filename',
                                  accident_time,
                                  car_or_motor,
                                  ownership,

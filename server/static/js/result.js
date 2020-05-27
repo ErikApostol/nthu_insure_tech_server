@@ -28,7 +28,7 @@ async function insert_data() {
         btn_a.appendChild(btn);
         td_analysis_info.appendChild(btn_a);
 
-        td_video_id.innerHTML = tmp_data["video_id"];
+        td_video_id.innerHTML = i;
         td_username.innerHTML = tmp_data["user_name"];
         td_accident_time.innerHTML = tmp_data["insert_time"];
         td_file_name.innerHTML = tmp_data["vidoe_filename"];

@@ -10,6 +10,14 @@
         <h1 class="mt-4">討論區搜尋結果</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">搜尋結果 符合 {{ forum_data['count'] }} 筆資料</li>
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" method="GET" action="/forum/filter">
+                <div class="input-group">
+                    <input class="form-control" name="filter" type="text" placeholder="Search for..." />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </ol>
         {% for i in range(0, forum_data['count']) %}
             <div class="box forum">

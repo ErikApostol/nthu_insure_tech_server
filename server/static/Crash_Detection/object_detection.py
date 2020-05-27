@@ -68,7 +68,7 @@ class object_detection:
     video_detector.loadModel()
     custom_objects = video_detector.CustomObjects(person=True, bicycle=True, motorcycle=True, car=True, bus=True, truck=True)
 
-    print(self.output_files_path)
+    # print(self.output_files_path)
 
     video_detector.detectCustomObjectsFromVideo(custom_objects=custom_objects,
                                       input_file_path=os.path.join(self.current_path, self.input_files_path + self.video_file_name), 

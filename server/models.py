@@ -77,7 +77,7 @@ class UploadFile(db.Model):
     role = db.Column(db.String(2048))
 
     insert_time = db.Column(db.DateTime, default=datetime.now)
-    analysis_state = db.Column(db.String(20), default='WAITNG')
+    analysis_state = db.Column(db.String(20), default='WAITING')
     analysis_result = db.Column(db.String(100), default='')
 
     def __init__(self, user_id, filename, hash_filename, g_sensor_filename, hash_g_sensor_filename, accident_time,

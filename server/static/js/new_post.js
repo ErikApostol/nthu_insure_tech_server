@@ -9,7 +9,6 @@ function post_data(url, data) {
       },
       method: 'POST',
       mode: 'cors',
-      redirect: 'follow',
       referrer: 'no-referrer',
     })
     .then(response => response.json())
@@ -23,7 +22,6 @@ function post_comment() {
         tag: "test"
     };
 
-    console.log(data);
     post_data("/post", data);
 }
 
