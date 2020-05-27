@@ -19,6 +19,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
+    personal_id = db.Column(db.String(1000))
+    b_date = db.Column(db.DateTime)
+    insert_time = db.Column(db.DateTime, default=datetime.now)
 
 
 class ForumComment(db.Model):

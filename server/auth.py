@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
+from datetime import datetime
 
 from models import User
 from __init__ import db
@@ -41,6 +42,8 @@ def signup():
 def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
+    personal_id = request.form.get('personal_id')
+    b_date = request.form.get('date')
     password = request.form.get('password')
 
     user = User.query.filter_by(
@@ -51,11 +54,17 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     # create new user with the form data. Hash the password so plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    new_user = User(email=email, 
+                    name=name, 
+                    password=generate_password_hash(password, method='sha256'),
+                    personal_id=personal_id,
+                    b_date=datetime.strptime(b_date, "%Y-%m-%d"))
 
     # add the new user to the database
     db.session.add(new_user)
     db.session.commit()
+
+    print('registered')
 
     return redirect(url_for('auth.login'))
 
