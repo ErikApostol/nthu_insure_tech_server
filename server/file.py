@@ -26,13 +26,8 @@ class detection:
             video = video_name
             #print('The current working directory is ', os.getcwd(), '\n')
             print('python3', detect_script, video)
-            p = subprocess.Popen(['../bin/python3', detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            p = subprocess.Popen([PYTHON3_VIRTUALENV, detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out = p.communicate()
-
-            #for i in out:
-            #    print("==========\n")
-            #    print(i, '\n')
-            #    print("==========\n")
 
             upload_file = UploadFile.query.filter_by(vidoe_hash_filename=video_name).first()
             if len(str(out[0], encoding = "utf-8")) != 0:
@@ -40,13 +35,13 @@ class detection:
                 upload_file.analysis_result = str(out[0], encoding = "utf-8")
                 db.session.commit()
             else:
-                upload_file.analysis_state = 'FAIL1'
+                upload_file.analysis_state = 'FAIL no output'
                 db.session.commit()
             
         except:
             db.session.rollback()
             upload_file = UploadFile.query.filter_by(vidoe_hash_filename=video_name).first()
-            upload_file.analysis_state = 'FAIL2'
+            upload_file.analysis_state = 'FAIL other'
             db.session.commit()
 
 def sha_filename(filename):

@@ -8,6 +8,8 @@ server/cert.pem
 server/key.pem
 server/tmp/*
 *.mp4
+server/config.py
+server/static/Crash_Detection/config.py
 
 # crash detedction
 server/static/Crash_Detection/yolo.h5
