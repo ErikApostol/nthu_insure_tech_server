@@ -84,7 +84,7 @@ class UploadFile(db.Model):
     analysis_result = db.Column(db.String(100), default='')
 
     def __init__(self, user_id, filename, hash_filename, g_sensor_filename, hash_g_sensor_filename, accident_time,
-                 car_or_motor, ownership, object_hit, country, description, crush_type, role):
+                 car_or_motor, ownership, object_hit, country, description, crush_type, role, analysis_result=None):
         self.user_id = user_id
         self.vidoe_filename = filename
         self.vidoe_hash_filename = hash_filename
@@ -98,3 +98,7 @@ class UploadFile(db.Model):
         self.description = description
         self.crush_type = crush_type
         self.role = role
+        
+        if analysis_result:
+            self.analysis_result = analysis_result
+            self.analysis_state = 'SUCCESS'

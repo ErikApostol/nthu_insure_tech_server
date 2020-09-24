@@ -8,6 +8,9 @@ import json
 import multiprocessing as mp
 import subprocess
 import datetime
+# import numpy as np
+# from pandas import DataFrame
+import pandas as pd
 
 from models import User, UploadFile
 from main import home
@@ -26,7 +29,7 @@ class detection:
             video = video_name
             #print('The current working directory is ', os.getcwd(), '\n')
             print('python3', detect_script, video)
-            p = subprocess.Popen([PYTHON3_VIRTUALENV, detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            p = subprocess.Popen(['python3', detect_script, video], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out = p.communicate()
 
             upload_file = UploadFile.query.filter_by(vidoe_hash_filename=video_name).first()
@@ -99,6 +102,7 @@ def get_result_content():
 @login_required
 def get_result():
     data = UploadFile.query.all()
+    print('data: ', data)
 
     content_list = []
     for d in data:
@@ -122,13 +126,13 @@ def get_result():
             "user_email": User.query.filter_by(id=d.user_id).first().email,
             "user_name": User.query.filter_by(id=d.user_id).first().name
         })
+    print('content_list set')
+    # print('content_list: ', content_list)
 
     return_data = {
         "count": len(data),
         "content": content_list
     }
-
-    # print(return_data)
 
     return jsonify(return_data)
 
@@ -138,6 +142,13 @@ def get_result():
 def upload():
 
     return render_template('upload_video.html')
+
+
+@file.route('/upload_video_car')
+@login_required
+def upload_car():
+
+    return render_template('upload_video_car.html')
 
 
 @file.route('/upload_success')
@@ -190,6 +201,82 @@ def upload_video():
 
     new_detection = mp.Process(target=detection.crash_detection, args=(session['video_hash_filename'], ))
     new_detection.start()
+
+    return redirect(url_for('file.upload_success'))
+
+
+@file.route('/upload_video_car', methods=['POST'])
+@login_required
+def upload_video_car():
+    POSTED_SPEED_LIMIT = request.form['POSTED_SPEED_LIMIT']
+    weather = request.form['weather']
+    light = request.form['light']
+    FIRST_CRASH_TYPE = request.form['FIRST_CRASH_TYPE']
+    CRASH_HOUR = request.form['CRASH_HOUR']
+    description = request.form['description']
+
+    X_test = pd.DataFrame({
+                     'POSTED_SPEED_LIMIT': [POSTED_SPEED_LIMIT,],
+                     'weather_CLEAR': [0, ],
+                     'weather_CLOUDY/OVERCAST': [0, ],
+                     'weather_FOG/SMOKE/HAZE': [0, ],
+                     'weather_OTHER': [0, ],
+                     'weather_RAIN': [0, ],
+                     'weather_SEVERE CROSS WIND GATE': [0, ],
+                     'weather_SLEET/HAIL': [0, ],
+                     'weather_SNOW': [0, ],
+                     'light_DARKNESS': [0, ],
+                     'light_DARKNESS: 0,  LIGHTED ROAD': [0, ],
+                     'light_DAWN': [0, ],
+                     'light_DAYLIGHT': [0, ],
+                     'light_DUSK': [0, ],
+                     'FIRST_CRASH_TYPE_ANGLE': [0,  ],
+                     'FIRST_CRASH_TYPE_ANIMAL': [0, ],
+                     'FIRST_CRASH_TYPE_FIXED OBJECT': [0,  ],
+                     'FIRST_CRASH_TYPE_HEAD ON': [0,  ],
+                     'FIRST_CRASH_TYPE_OTHER NONCOLLISION': [0,  ],
+                     'FIRST_CRASH_TYPE_OTHER OBJECT': [0, ],
+                     'FIRST_CRASH_TYPE_OVERTURNED': [0,  ],
+                     'FIRST_CRASH_TYPE_PARKED MOTOR VEHICLE': [0,  ],
+                     'FIRST_CRASH_TYPE_PEDELCYCLIST': [0,  ],
+                     'FIRST_CRASH_TYPE_PEDESTRIAN': [0, ],
+                     'FIRST_CRASH_TYPE_REAR END': [0,  ],
+                     'FIRST_CRASH_TYPE_SIDESWIPE OPPOSITE DIRECTION': [0,  ],
+                     'FIRST_CRASH_TYPE_SIDESWIPE SAME DIRECTION': [0, ],
+                     'FIRST_CRASH_TYPE_TRAIN': [0, ],
+                     'FIRST_CRASH_TYPE_TURNING': [0,  ],
+                     'CRASH_HOUR': [CRASH_HOUR, ]
+                     })
+
+    X_test.loc[0, 'weather_' + weather] = 1
+    X_test.loc[0, 'light_' + light] = 1
+    X_test.loc[0, 'FIRST_CRASH_TYPE_' + FIRST_CRASH_TYPE] = 1
+
+    from joblib import dump, load
+    car_model = load('car_model.joblib')
+    test_y_predicted=car_model.predict(X_test)[0]
+
+    print('The crash type is ' + str(test_y_predicted))
+
+    new_upload_file = UploadFile(session['user_id'],
+                                 '無影片',            #session['video_filename'],
+                                 '',            #session['video_hash_filename'],
+                                 '',            #'g_sensor_filename',
+                                 '',            #'g_sensor_hash_filename',
+                                 str(CRASH_HOUR), #accident_time,
+                                 '汽車',          #car_or_motor,                    
+                                 '',            #ownership,
+                                 '',            #object_hit,
+                                 '',            #country,
+                                 '速限：'+str(POSTED_SPEED_LIMIT)+', 天氣：'+weather+', 照明度：'+light+'\n'+description,            #description,
+                                 FIRST_CRASH_TYPE,#crush_type,                                
+                                 '',            #role)
+                                 '事故等級：'+str(test_y_predicted)+
+                                     '\n(說明：0: FATAL, 1: INCAPACITATING INJURY, 2: REPORTED, NOT EVIDENT, 3: NONINCAPACITATING INJURY, 4: NO INDICATION OF INJURY)' 
+                                )
+
+    db.session.add(new_upload_file)
+    db.session.commit()
 
     return redirect(url_for('file.upload_success'))
 

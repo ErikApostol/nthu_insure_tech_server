@@ -1,1 +1,1 @@
-CRASH_DETECTION_ROOT = '/home/happy/Documents/s2020/nthu_insure_tech_server/server/static/Crash_Detection'
+CRASH_DETECTION_ROOT = '/home/spock/nthu_insure_tech_server/server/static/Crash_Detection'

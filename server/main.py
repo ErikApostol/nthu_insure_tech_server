@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, jsonify, request, redirect, url_for
+from flask import Blueprint, render_template, session, jsonify, request, redirect, url_for, Response
 from flask_login import login_required, current_user
 from __init__ import db
 
@@ -70,27 +70,29 @@ def home_your_video():
 
 
 @main.route('/get_username')
-def get_uaername():
-    uaername = ''
+def get_username():
+    username = ''
     try:
+        print('take username')
         username = current_user.name
+        print('username: ', username)
     except:
         pass
 
     ret = {
         'username': username
     }
+    print('ret: ', ret)
 
     return jsonify(ret)
 
 # Source: https://medium.com/@ericwuehler/using-let-s-encrpyt-9175feb76632
-#@main.route('/.well-known/acme-challenge/<challenge>')
-#def letsencrypt_check(challenge):
-#    challenge_response = {
-#        "<challenge_token>":"<challenge_response>",
-#        "<challenge_token>":"<challenge_response>"
-#    }
-#    return Response(challenge_response[challenge], mimetype='text/plain')
+@main.route('/.well-known/acme-challenge/<challenge>')
+def letsencrypt_check(challenge):
+    challenge_response = {
+        "XPPX0MVpq_YA299CHevcLzl78w7iJsK5f1aHUUE5C1E":"XPPX0MVpq_YA299CHevcLzl78w7iJsK5f1aHUUE5C1E.oU8XRNS5izeH5v3gYpgwJFgc-5cPO6iDNvn3A2EJ2Qw"
+    }
+    return Response(challenge_response[challenge], mimetype='text/plain')
 
 # redirect all http to https
 # @main.before_request

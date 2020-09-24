@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/upload_file.js') }}"></script>
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">事故分析（汽車用）</h3></div>
+                            <div class="card-body">
+                                <form action="/upload_video_car" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <p>事發地點速限：
+                                            <select class="form-control" id="POSTED_SPEED_LIMIT" name="POSTED_SPEED_LIMIT">
+                                                <option value="12.4274">20km/h</option>
+                                                <option value="15.5343">25km/h</option>
+                                                <option value="18.6411">30km/h</option>
+                                                <option value="21.748">35km/h</option>
+                                                <option value="24.8548">40km/h</option>
+                                                <option value="27.9617">45km/h</option>
+                                                <option value="31.0686">50km/h</option>
+                                                <option value="34.1754">55km/h</option>
+                                                <option value="37.2823">60km/h</option>
+                                                <option value="40.3891">65km/h</option>
+                                                <option value="43.496">70km/h</option>
+                                                <option value="46.6028">75km/h</option>
+                                                <option value="49.7097">80km/h</option>
+                                                <option value="52.8166">85km/h</option>
+                                                <option value="55.9234">90km/h</option>
+                                                <option value="59.0303">95km/h</option>
+                                                <option value="62.1371">100km/h</option>
+                                                <option value="65.244">105km/h</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>天氣：
+                                            <select class="form-control" id="weather" name="weather">
+                                                <option value="CLEAR">晴天</option>
+                                                <option value="CLOUDY/OVERCAST">多雲/陰天</option>
+                                                <option value="FOG/SMOKE/HAZE">霧/煙/霧</option>
+                                                <option value="RAIN">雨</option>
+                                                <option value="SEVERE CROSS WIND GATE">嚴重的橫風門</option>
+                                                <option value="SLEET/HAIL">冰雹</option>
+                                                <option value="SNOW">雪</option>
+                                                <option value="OTHER">其他</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>照明條件：
+                                            <select class="form-control" id="light" name="light">
+                                                <option value="DARKNESS">黑暗</option>
+                                                <option value="DARKNESS, LIGHTED ROAD">黑暗，有路燈</option>
+                                                <option value="DAWN">黎明</option>
+                                                <option value="DAYLIGHT">日光</option>
+                                                <option value="DUSK">黃昏</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>碰撞方式：
+                                            <select class="form-control" id="FIRST_CRASH_TYPE" name="FIRST_CRASH_TYPE">
+                                                <option value="ANGLE">呈夾角撞上</option>
+                                                <option value="ANIMAL">撞到動物</option>
+                                                <option value="FIXED OBJECT">撞到固定物品</option>
+                                                <option value="HEAD ON">正面迎頭相撞</option>
+                                                <option value="OTHER NONCOLLISION">碰撞不是造成事故嚴重的主因(ex:碰撞後汽車著火)</option>
+                                                <option value="OVERTURNED">翻覆</option>
+                                                <option value="PARKED MOTOR VEHICLE">停放車輛</option>
+                                                <option value="PEDELCYCLIST">騎自行車的人</option>
+                                                <option value="PEDESTRIAN">撞到行人</option>
+                                                <option value="REAR END">車尾</option>
+                                                <option value="SIDESWIPE OPPOSITE DIRECTION">側面撞到對向車</option>
+                                                <option value="SIDESWIPE SAME DIRECTION">側面撞到同向車</option>
+                                                <option value="TRAIN">撞到火車</option>
+                                                <option value="TURNING">在岔路口相撞</option>
+                                                <option value="OTHER OBJECT">其它物品</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>事故發生在幾點鐘：
+                                            <select class="form-control" id="CRASH_HOUR" name="CRASH_HOUR">
+                                                <option value="00">00</option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>事件大略描述：
+                                            <textarea class="form-control" id="description" name="description"></textarea>
+                                        </p>
+                                    </div>
+                                        
+                                    <button class="btn btn-primary btn-block" type="submit" >送出</button>
+                                </form>
+                                
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="small">分析結果需要時間，請耐心等待</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
