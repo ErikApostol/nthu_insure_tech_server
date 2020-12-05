@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb mb-4">
+        </ol>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>影片下載連結</th>
+                                <th>上傳時間</th>
+                                <th>上傳帳號</th>
+                                <th>上傳者email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in data %}
+                            <tr>
+                                <td><a href="/download/{{ d['video_hash_filename'] }}" target="_blank">
+                                        {{ d['video_filename'] }}
+                                    </a><br>
+                                    ({{ d['video_hash_filename'] }})
+                                </td>
+                                <td>{{ d['insert_time'] }} UTC</td>
+                                <td>{{ d['user_name'] }}</td>
+                                <td>{{ d['user_email'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

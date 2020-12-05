@@ -118,7 +118,7 @@ class crash_detect_module:
         else:
             arg_where = np.argwhere(pix_diff_arr >= self.PIX_DIFF_CRASH_THRESHOLD).flatten() 
             #filter variable > self.PIX_DIFF_CRASH_THRESHOLD, self.PIX_DIFF_CRASH_THRESHOLD(owd define)
-            self.pix_first_time_th = arg_where[0] / fps #second of crashing in vidoe
+            self.pix_first_time_th = arg_where[0] / fps #second of crashing in video
             self.pix_diff_crash_flag = True #output, crash flag
         #crash  detect 2
         #使用變化率的畫面變化率來偵測碰種 (類似微分)

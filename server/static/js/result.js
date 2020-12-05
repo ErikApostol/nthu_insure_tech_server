@@ -31,7 +31,7 @@ async function insert_data() {
         td_video_id.innerHTML = i;
         td_username.innerHTML = tmp_data["user_name"];
         td_accident_time.innerHTML = tmp_data["insert_time"];
-        td_file_name.innerHTML = tmp_data["vidoe_filename"];
+        td_file_name.innerHTML = tmp_data["video_filename"];
         td_analysis_status.innerHTML = tmp_data["analysis_state"];
 
         // td_analysis_info.setAttribute('html', "<input type=\"button\" class=\"btn\" value=\'" + entry.email + "\" onclick=\"" + chooseUser(entry) + "\"/>");
