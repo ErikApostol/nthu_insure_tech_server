@@ -46,5 +46,4 @@ if __name__ == "__main__":
     app.debug = False; print('__init__.py', 46, 'Done')
     # https://stackoverflow.com/questions/14814201/can-i-serve-multiple-clients-using-just-flask-app-run-as-standalone
     app.run(host='0.0.0.0', port=80, ssl_context=('fullchain.pem', 'privkey.pem'), threaded=True); print('__init__.py', 48, 'Done')
-    # app.run(host='0.0.0.0', port=80, ssl_context=('fullchain.pem', 'privkey.pem'), threaded=False, processes=10); print('__init__.py', 47, 'Done')
     # app.run(host='0.0.0.0', port=80)

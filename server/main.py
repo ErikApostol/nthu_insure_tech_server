@@ -96,7 +96,7 @@ def get_username():
 @main.route('/.well-known/acme-challenge/<challenge>')
 def letsencrypt_check(challenge):
     challenge_response = {
-        "zWYD-opVM50G4Exmbzd3XPuL7lEPDSVGq8W88Y6exq4":"zWYD-opVM50G4Exmbzd3XPuL7lEPDSVGq8W88Y6exq4.oU8XRNS5izeH5v3gYpgwJFgc-5cPO6iDNvn3A2EJ2Qw"
+        "OtTzTKZxYbPxKzG15JVaKx0G2-rT_3Xei0J1flhBXr0":"OtTzTKZxYbPxKzG15JVaKx0G2-rT_3Xei0J1flhBXr0.oU8XRNS5izeH5v3gYpgwJFgc-5cPO6iDNvn3A2EJ2Qw"
     }
     return Response(challenge_response[challenge], mimetype='text/plain')
 
@@ -105,3 +105,20 @@ def letsencrypt_check(challenge):
 # def before_request():
 #     if request.url.startswith('http://'):
 #         return redirect(request.url.replace('http://', 'https://'), code=301)
+
+
+# API for crash duration
+@main.route('/crash_duration_api', methods=['POST'])
+def crash_duration_api():
+    from models import UploadFile
+    import re
+    request_body = request.get_json()
+    if request_body['pw']=='2d9732c37a97b992171a9f646453d828':
+        d = UploadFile.query.filter_by(file_id=request_body['video_id']).first() 
+        # d = UploadFile.query.filter_by(video_filename=request_body['video_filename']).first() 
+        analysis_result = d.analysis_result
+        p = re.compile("4\.碰撞持續時間點: *(-?[\.0-9]+)")
+        result = p.search(analysis_result)
+        return jsonify({ "video_id": request_body['video_id'],
+                         "video_filename": d.video_filename,
+                         "crash_duration": result.group(1) })
